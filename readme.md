@@ -47,8 +47,13 @@ wrapper classes put primitives in an object so that we can call methods from the
 
 ## other built-in object types
 
-**String** is a sequence of characters
-**BigInteger** is an integer that can be as big as you want
+- **String** is a sequence of characters, immutable
+  - comparing Strings with == compares objects, use `str1.equals(str2)` instead
+  - `str1.length()` for the length
+  - `str1.toUpperCase()` and `str1.toLowerCase()`
+  - format with `String formatted = String.format("%s owes me %.2f dollars","John",5);`
+  - remove starting and ending whitespace with `str1.trim()`
+- **BigInteger** is an integer that can be as big as you want
 
 # control flow and stuff
 
@@ -90,3 +95,58 @@ switch(day){
         System.out.println("I love the weekend");
 }
 ```
+
+## methods
+
+pretty much the same as C++
+```
+public class Conversions {
+    public double feetInchesToCentimeters(double feet, double inches){
+        //code which returns a double
+    }
+}
+```
+
+can overload methods by giving different parameter types/quantity
+
+## constructors
+
+constructors are like methods but there is no return type or return statement
+```
+public class Test {
+    String _name;
+    int _score;
+
+    public Test(String name, int score) {
+        _name = name;
+        _score = score;
+    }
+}
+```
+
+## make it modular
+
+- we want to reuse a class? then don't put the main() method in it
+- create a separate class with the main method (the *driver* class) which uses the reusable class
+
+import a library class
+```
+import java.util.Date;
+```
+
+then in a method you can create a Date
+```
+Date date = new Date();
+```
+
+dependency injection of your own Sausage class: just use the class in the other class (same directory)
+```
+public class TestSausage {
+    public static void main(String[] args){
+        Sausage mySausage = new Sausage();
+        System.out.println(mySausage);
+    }
+}
+```
+
+compiling the driver class will also compile its dependencies
