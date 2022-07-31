@@ -10,7 +10,7 @@
 
 - Download JDK from [Oracle](https://www.oracle.com/java/technologies/downloads/)
 - try to run the **javac** command in powershell
-  - if not recognized, you must add the *jdkxxxx/bin* folder to your PATH
+  - if not recognized, you must add the *Program Files/Java/jdk1.8.0_341/bin* folder to your PATH (in settings search for *Advanced System Settings*, click *Environment Variables*, edit *Path*, *New*, *Browse* to the location)
 - create a file called **ClassName.java**
 - put some code in a class with the same name as the file (*main()* is entry point of the program)
 ```
@@ -50,7 +50,7 @@ wrapper classes put primitives in an object so that we can call methods from the
 **String** is a sequence of characters
 **BigInteger** is an integer that can be as big as you want
 
-# control flow an stuff
+# control flow and stuff
 
 ## if, else if, else and conditions
 
