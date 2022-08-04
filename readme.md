@@ -64,6 +64,18 @@ wrapper classes put primitives in an object so that we can call methods from the
   - to search for first index of substring str2 in str1 `str1.indexOf(str2)` (returns -1 if not found)
 - **BigInteger** is an integer that can be as big as you want
 
+## more on object types
+
+to create a new object, you generally need to call a constructor
+```
+Gorilla myGorilla = new Gorilla();
+```
+
+- objects are stored/passed by reference; this is often convenient, just be careful
+- equality of objects compares objects, not the data inside; you must use a method if that's what you want to check
+
+# collection data types
+
 ## arrays vs ArrayLists
 
 a fixed-length array can be made like this, which fills it with default values
@@ -77,12 +89,13 @@ int[] coolArray = {1,2,3,4,5,6,7,8,7,6,5,4,3,2,1};
 - typical `coolArray[i]` syntax to get and set values at index *i*
 - `coolArray.length` to get the length
 - manually loop through the array to print it in a meaningful way
-  - or `import java.util.Arrays` and use `Arrays.toString(coolArray)`
+  - or `import java.util.Arrays;` and use `Arrays.toString(coolArray)`
 
 `ArrayList<T>` is a generic object-based adjustable array
 - it can't hold primitive types
 - can hold different types via parent class, `ArrayList<Object>` for all
 - does not use bracket syntax
+- must `import java.util.ArrayList;`
 
 ```
 ArrayList<Integer> coolerArray = new ArrayList<Integer>();
@@ -171,61 +184,6 @@ switch(day){
 }
 ```
 
-## methods
-
-pretty much the same as C++
-```
-public class Conversions {
-    public double feetInchesToCentimeters(double feet, double inches){
-        //code which returns a double
-    }
-}
-```
-
-can overload methods by giving different parameter types/quantity
-
-## constructors
-
-constructors are like methods but there is no return type or return statement
-```
-public class Test {
-    private String name;
-    private int score;
-
-    public Test(String name, int score) {
-        this.name = name;
-        this.score = score;
-    }
-}
-```
-
-## make it modular
-
-- we want to reuse a class? then don't put the main() method in it
-- create a separate class with the main method (the *driver* class) which uses the reusable class
-
-import a library class
-```
-import java.util.Date;
-```
-
-then in a method you can create a Date
-```
-Date date = new Date();
-```
-
-dependency injection of your own Sausage class: just use the class in the other class (same directory)
-```
-public class TestSausage {
-    public static void main(String[] args){
-        Sausage mySausage = new Sausage();
-        System.out.println(mySausage);
-    }
-}
-```
-
-compiling the driver class will also compile its dependencies
-
 ## exceptions
 
 make an exception class with the class that throws it
@@ -254,3 +212,105 @@ class MainClass {
     }
 }
 ```
+
+# more classy stuff
+
+## attributes (member variables)
+
+- attributes default to 0 / false / null
+- if you want to use a collection type, initialize it in the constructor
+- standard practice is all private, use getters and setters
+
+## methods
+
+pretty much the same as C++
+```
+public class Conversions {
+    public double feetInchesToCentimeters(double feet, double inches){
+        //code which returns a double
+    }
+}
+```
+
+- can overload methods by giving different parameter types/quantity
+- can override methods of parent class / interfaces by using same method signature
+
+## constructors
+
+constructors are like methods but there is no return type or return statement
+```
+public class Test {
+    private String name;
+    private int score;
+
+    public Test(){
+        this("John Smith",100); //call other constructor
+    }
+
+    public Test(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+}
+```
+
+- a child class can call a parent class constructor with `super()`
+  - you can't instantiate abstract classes, but you can define a constructor to take advantage of this
+
+## inheritance
+
+a class can inherit from only one parent class with the keyword **extends**  
+(if not specified, inherits from *Object*)
+
+```
+Class Motorcycle extends Vehicle{
+```
+
+the child class can't access private attributes or methods; you may want to make them protected
+
+## abstract classes and interfaces
+
+abstract classes
+- declare a class as `abstract` and it can't be instantiated
+- child classes must override any abstract methods
+
+interfaces
+- an interface specifies something a class is able to do
+- a class can declare it will fulfill multiple interfaces with the keyword **implements**
+- the class must override any abstract methods
+- interfaces can only have **static** **final** attributes (AKA constant class variables)
+
+## make it modular
+
+- we want to reuse a class? then don't put the main() method in it
+- create a separate class with the main method (the *driver* class) which uses the reusable class
+
+import a library class
+```
+import java.util.Date;
+```
+
+then in a method you can create a Date
+```
+Date date = new Date();
+```
+
+dependency injection of your own Sausage class: just use the class in the other class (same directory)
+```
+public class TestSausage {
+    public static void main(String[] args){
+        Sausage mySausage = new Sausage();
+        System.out.println(mySausage);
+    }
+}
+```
+
+compiling the driver class will also compile its dependencies
+
+**packages** is the end goal for our code (IDE may abstract away some of this)
+- folder structure from project root folder from general to specific, all lowercase
+  - example: *\stuff\misc\calchelpers*
+- your source files in these folders declare their package
+  - example: `package stuff.misc.calchelpers;`
+- the package will be created when you compile
+- you will end up using **import** statements to reuse your package
