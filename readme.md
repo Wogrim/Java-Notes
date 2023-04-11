@@ -186,7 +186,7 @@ switch(day){
 
 ## exceptions
 
-make an exception class with the class that throws it
+you can make your own exception class with the class that throws it
 ```
 class MyException extends Exception{}
 class ExceptionThrower{
@@ -212,6 +212,11 @@ class MainClass {
     }
 }
 ```
+
+- when a method explicitly throws an exception, it is a 'checked' exception
+  - whatever calls it must handle the exception, or throw it higher (or it won't compile)
+- other exceptions are 'unchecked' exceptions such as Null Pointer Exception
+  - sometimes you avoid them entirely with good code / validations, other times catch them
 
 # more classy stuff
 
