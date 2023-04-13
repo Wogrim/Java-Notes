@@ -76,6 +76,8 @@ Gorilla myGorilla = new Gorilla();
 
 # collection data types
 
+collections in Java are homogenous (can't mix types) -- except for polymorphism
+
 ## arrays vs ArrayLists
 
 a fixed-length array can be made like this, which fills it with default values
@@ -281,9 +283,36 @@ abstract classes
 
 interfaces
 - an interface specifies something a class is able to do
-- a class can declare it will fulfill multiple interfaces with the keyword **implements**
-- the class must override any abstract methods
-- interfaces can only have **static** **final** attributes (AKA constant class variables)
+  - interfaces can only have **static** **final** attributes (AKA constant class variables)
+- a class can declare it will fulfill one or more interfaces with the keyword **implements**
+  - the class must override any abstract methods
+
+example: implement Comparator<T> to make a class that can be used for sorting another class
+```
+Class StudentComparer implements Comparator<Student> {
+  @Override
+  public int compare(Student a, Student b) {
+    //return 0 if equal, negative number if a before b, positive number if b before a
+    if(a.gpa!=b.gpa)
+      //gpa ascending
+      return Integer.compare(a.gpa,b.gpa);
+    else
+      //name ascending
+      return a.name.compareTo(b.name);
+  }
+}
+```
+
+## sorting collections
+
+for regular fixed arrays, use the Arrays.sort static method
+```
+Arrays.sort(studentsArray, new StudentComparer());
+```
+
+some collections such as ArrayList have a `.sort()` method
+- if you don't put in a Comparator, it will use the "natural sorting order"
+  - implement the **Comparable** interface on your object type to change the natural sorting order
 
 ## make it modular
 
