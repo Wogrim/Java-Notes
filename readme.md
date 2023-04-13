@@ -94,8 +94,7 @@ int[] coolArray = {1,2,3,4,5,6,7,8,7,6,5,4,3,2,1};
   - or `import java.util.Arrays;` and use `Arrays.toString(coolArray)`
 
 `ArrayList<T>` is a generic object-based adjustable array
-- it can't hold primitive types
-- can hold different types via parent class, `ArrayList<Object>` for all
+- it can't hold primitive types (but can hold wrapper classes)
 - does not use bracket syntax
 - must `import java.util.ArrayList;`
 
@@ -292,16 +291,18 @@ public class Conversions {
 
 - can overload methods by giving different parameter types/quantity
 - can override methods of parent class / interfaces by using same method signature
+  - use @Override annotation for readability and compiler check
 
 ## constructors
 
-constructors are like methods but there is no return type or return statement
+- a constructor is called when you create a new instance of the class
+- constructors are like methods but there is no return type or return statement
 ```
 public class Test {
     private String name;
     private int score;
 
-    public Test(){
+    public Test() {
         this("John Smith",100); //call other constructor
     }
 
@@ -352,6 +353,37 @@ Class StudentComparer implements Comparator<Student> {
       return a.name.compareTo(b.name);
   }
 }
+```
+
+## nested classes
+
+you can define a class within another class
+
+an instance of a **static** nested class can only be created in the context of the parent class
+```
+public class OuterClass {
+    public static class NestedClass {
+...
+OuterClass.NestedClass c = new OuterClass.NestedClass();
+```
+
+if the nested class is not static, it can only be created from an instance of the parent class
+- *inner class*
+```
+public class OuterClass {
+    public class NestedClass {
+...
+OuterClass o = new OuterClass();
+OuterClass.NestedClass c = o.new NestedClass();
+```
+
+if a class is declared in a method or {} it can only be used in that scope
+- *local class*
+```
+public class OuterClass {
+    public void myFunction() {
+        class LocalClass { ... }
+        LocalClass local = new LocalClass();
 ```
 
 ## sorting collections
