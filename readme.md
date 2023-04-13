@@ -188,24 +188,63 @@ switch(day){
 
 ## exceptions
 
-you can make your own exception class with the class that throws it
+- an exception is when a piece of code is unable to continue and is forced to abort
+  - similar to a *return* statement, code in a method after an exception occurs is not executed
+- there are many causes of exceptions, here's several
+  - trying to divide by zero
+    - ArithmeticException
+  - trying to use a null object
+    - NullPointerException
+  - trying to use Scanner.nextInt() when the next thing isn't an int
+    - InputMismatchException
+  - trying to use Integer.parseInt(String s) if the string doesn't have an int
+    - NumberFormatException
+  - trying to use ArrayList.get(int index) if the index is not in the array
+    - IndexOutOfBoundsException
+  - trying to use LinkedList.removeFirst() when the list is empty
+    - NoSuchElementException
+  - trying ot use Stack.pop() when the stack is empty
+    - EmptyStackException
+  
+- thrown exceptions must be caught or the entire program fails
+  - checked exceptions are when a method explicitly says `throws ExceptionType`
+    - the program will not compile if these exceptions are not caught, or the calling method can also say `throws ExceptionType`
+    - to make your own, extend *Exception*
+  - unchecked exceptions are those which are not stated in the method declaration
+    - you usually can (and should) avoid these exceptions with validation
+    - to make your own, extend *RuntimeException*
+
+you can create your own exception class (helps identify problems when catching)
 ```
-class MyException extends Exception{}
-class ExceptionThrower{
-    public void couldFail() throws MyException{
-        //should probably do something
-        throw new MyException();
+class MyException extends Exception{
+    //constructors
+    MyException() {
+        super();
+    }
+    MyException(String message) {
+        super(message);
     }
 }
 ```
 
-try/catch in the class that wants to use that method
+a method which throws an exception
+```
+class ThingDoer{
+    public void doThing() throws MyException{
+        //TODO: do something
+        //TODO: only throw exception under certain conditions
+        throw new MyException("something specific caused doThing() to not work");
+    }
+}
+```
+
+example: catching an exception
 ```
 class MainClass {
-    ExceptionThrower et = new ExceptionThrower();
+    ThingDoer td = new ThingDoer();
     public static void main(String[] args){
         try{
-            et.couldFail();
+            td.doThing();
             System.out.println("success");
         }
         catch (MyException e){
@@ -215,10 +254,22 @@ class MainClass {
 }
 ```
 
-- when a method explicitly throws an exception, it is a 'checked' exception
-  - whatever calls it must handle the exception, or throw it higher (or it won't compile)
-- other exceptions are 'unchecked' exceptions such as Null Pointer Exception
-  - sometimes you avoid them entirely with good code / validations, other times catch them
+example: catching multiple possible exceptions (it will use the first one that matches)
+```
+        try{
+            td.doThing();
+            System.out.println("success");
+        }
+        catch (MyException e){
+            System.out.println(e);
+        }
+        catch (NullPointerException e){
+            System.out.println("null pointer when trying to do thing");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+```
 
 # more classy stuff
 
