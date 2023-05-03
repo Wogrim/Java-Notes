@@ -359,22 +359,26 @@ Class StudentComparer implements Comparator<Student> {
 
 you can define a class within another class
 
-an instance of a **static** nested class can only be created in the context of the parent class
-```
-public class OuterClass {
-    public static class NestedClass {
-...
-OuterClass.NestedClass c = new OuterClass.NestedClass();
-```
-
 if the nested class is not static, it can only be created from an instance of the parent class
 - *inner class*
 ```
 public class OuterClass {
     public class NestedClass {
-...
+// ...
 OuterClass o = new OuterClass();
 OuterClass.NestedClass c = o.new NestedClass();
+```
+
+- from methods in the parent class, you can just refer to it as NestedClass;
+- you can make the nested class private
+  - if private, it may be less messy to just declare it outside of OuterClass (but in the same file)
+
+if you want to create an instance of the nested class from a static context such as main() without having to create an instance of the parent class, declare it *static*
+```
+public class OuterClass {
+    public static class NestedClass {
+// ...
+OuterClass.NestedClass c = new OuterClass.NestedClass();
 ```
 
 if a class is declared in a method or {} it can only be used in that scope
