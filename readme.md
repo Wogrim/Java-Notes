@@ -386,6 +386,30 @@ public class OuterClass {
         LocalClass local = new LocalClass();
 ```
 
+## enum
+
+can make an enum in its own file *Color.java*
+- use as `Color color = Color.RED;`
+```
+public enum Color {
+    RED,
+    BLUE,
+    GREEN;
+}
+```
+
+or you can nest an enum inside a class
+- use as `Color color = Color.RED;` inside the class
+- use as `MyClass.Color color = MyClass.Color.RED;` outside the class
+```
+public class MyClass {
+    // ...
+    public enum Color {
+        RED, BLUE, GREEN;
+    }
+}
+```
+
 ## sorting collections
 
 for regular fixed arrays, use the Arrays.sort static method
