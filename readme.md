@@ -515,6 +515,29 @@ try {
 }
 ```
 
+## Javadoc code documentation
+
+The JDK comes with the tool to generate documentation for your project
+- you access it in the menu in your IDE
+- it will be formatted in html a lot like the official Java documentation
+
+to add more information to it, put Javadoc comments above classes, methods, and fields (static class variables)
+```
+/**
+ * This is the one-sentence summary.
+ * No one knows what it actually does, but it's important I guess.
+ * <p>
+ * It probably does something with number.  Limit javadoc comment lines
+ * to 80char.
+ * 
+ * @param number should be between 1 and 5
+ * @return       "YES" or "NO"
+ */
+public String doSomething(int number) {
+    // ...
+}
+```
+
 ## make it modular
 
 - we want to reuse a class? then don't put the main() method in it
