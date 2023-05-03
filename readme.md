@@ -425,6 +425,38 @@ some collections such as ArrayList have a `.sort()` method
 - if you don't put in a Comparator, it will use the "natural sorting order"
   - implement the **Comparable** interface on your object type to change the natural sorting order
 
+## Dates and Times
+
+Java 7 (old)
+```
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.DateFormat;
+// ...
+// current date and time, a bunch of the constructors are deprecated
+Date now = new Date();
+// 12am Jan 10 2005
+GregorianCalendar gc = new GregorianCalendar(2005, 0, 10);
+Date gcd = gc.getTime();
+// formatting and printing the date
+DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
+System.out.println(df.format(gcd)); // Someday, January 10, 2005
+```
+
+Jave 8 (new)
+```
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+// ...
+// current date and time
+LocalDateTime now = LocalDateTime.now();
+// Jan 10 2005
+LocalDate ld = LocalDate.of(2005, 1, 10);
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EE, LLLL d, u");
+System.out.println(dtf.format(ld)); // Someday, January 10, 2005
+```
+
 ## make it modular
 
 - we want to reuse a class? then don't put the main() method in it
