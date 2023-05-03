@@ -427,7 +427,6 @@ some collections such as ArrayList have a `.sort()` method
 
 ## Dates and Times
 
-Java 7 (old)
 ```
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -443,7 +442,7 @@ DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
 System.out.println(df.format(gcd)); // Someday, January 10, 2005
 ```
 
-Jave 8 (new)
+Jave 8+
 ```
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -455,6 +454,65 @@ LocalDateTime now = LocalDateTime.now();
 LocalDate ld = LocalDate.of(2005, 1, 10);
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EE, LLLL d, u");
 System.out.println(dtf.format(ld)); // Someday, January 10, 2005
+```
+
+## File IO
+
+```
+ArrayList<String> lines = new ArrayList<String>();
+try {
+    FileReader fr = new FileReader("files/stuff.txt");
+    BufferedReader br = new BufferedReader(fr);
+    FileWriter fw = new FileWriter("files/stuff2.txt");
+    //read lines
+    while (true) {
+        String line = br.readLine();
+        if(line==null)
+            break;
+        //else
+        lines.add(line);
+    }
+    //write something
+    fw.write("we did it!\n");
+} catch (FileNotFoundException e) {
+    // ...
+} catch (IOException e) {
+    // ...
+} finally {
+    if(fr != null)
+        fr.close();
+    if(br != null)
+        br.close();
+    if(fw != null)
+        fw.close;
+}
+```
+
+automatically close stuff instead of needing *finally* (Java 7+)
+```
+try (FileReader fr = new FileReader("files/stuff.txt");
+    BufferedReader br = new BufferedReader(fr);
+    FileWriter fw = new FileWriter("files/stuff2.txt");
+) {
+    //read lines
+    //...
+}
+```
+
+Java 7+ Path and Files to copy a file
+```
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+// ...
+Path rp = Paths.get("files", "stuff.txt");
+Path wp = Paths.get("files", "stuff2.txt");
+try {
+    Files.copy(rp, wp, StandardCopyOption.REPLACE_EXISTING);
+} catch (IOException e) {
+    // ...
+}
 ```
 
 ## make it modular
